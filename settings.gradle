@@ -1,2 +1,3 @@
+include ':apiAnnotation'
 include ':app'
 rootProject.name = "ApiAnnotation"
