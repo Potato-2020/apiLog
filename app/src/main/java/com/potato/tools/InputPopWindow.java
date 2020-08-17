@@ -159,9 +159,9 @@ public class InputPopWindow extends PopupWindow implements View.OnClickListener 
         void onRightClick(String mInput, Object flag);
     }
 
-    private InputPopWindow.ItemsOnClick mItemsOnClick;
+    private ItemsOnClick mItemsOnClick;
 
-    public void setmItemsOnClick(InputPopWindow.ItemsOnClick mItemsOnClick) {
+    public void setmItemsOnClick(ItemsOnClick mItemsOnClick) {
         this.mItemsOnClick = mItemsOnClick;
     }
 

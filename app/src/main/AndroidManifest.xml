@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.potato.apiannotation">
+    package="com.potato.apilogvisual">
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 震动 -->
 
-    <application
-        android:label="DebugTest"
-        android:theme="@style/AppTheme">
-        <activity android:name="com.potato.demo.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+    <application>
+        <activity android:name=".ActivityApiLog"/>
+        <activity android:name=".ActivityApiLogDetails"/>
+        <activity android:name=".ActivityDebug"/>
     </application>
 
 </manifest>
