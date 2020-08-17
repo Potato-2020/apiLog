@@ -2,7 +2,10 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-//apply from:"../publishAndroidLib.gradle"
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'com.github.Potato-2020'
+version = '1.0.1'
 
 android {
     compileSdkVersion 29
@@ -72,7 +75,8 @@ task javadoc(type: Javadoc) {
     options.encoding  = "UTF-8"
     options.charSet  = "UTF-8"
     source = android.sourceSets.main.java.sourceFiles
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += project.files(project.android.getBootClasspath().join(File.pathSeparator))
+    System.out.println("classpath>>>${android.getBootClasspath().join(File.pathSeparator)}")
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
