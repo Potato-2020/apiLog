@@ -15,7 +15,6 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -63,3 +62,11 @@ dependencies {
     //recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 }
+
+//task javadoc2(type: Javadoc) {
+//    options.encoding = "UTF-8"
+//    options.charSet  = "UTF-8"
+//    source = android.sourceSets.main.java.sourceFiles
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//    System.out.println("classpath>>>${android.getBootClasspath().join(File.pathSeparator)}")
+//}

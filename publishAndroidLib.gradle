@@ -16,9 +16,11 @@ task sourcesJar(type: Jar) {
 }
 
 task javadoc(type: Javadoc) {
-    options.encoding = "utf-8"
-    source = android.sourceSets.main.java.sourceFiles
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//    options.encoding  = "UTF-8"
+//    options.charSet  = "UTF-8"
+//    source = android.sourceSets.main.java.sourceFiles
+//    classpath += project.files(project.android.getBootClasspath().join(File.pathSeparator))
+//    System.out.println("classpath>>>${android.getBootClasspath().join(File.pathSeparator)}")
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
