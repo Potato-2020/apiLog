@@ -1,3 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.potato.apiannotation"/>
+
+    package="com.potato.apilogvisual">
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 震动 -->
+
+    <application>
+        <activity android:name=".ActivityApiLog"/>
+        <activity android:name=".ActivityApiLogDetails"/>
+        <activity android:name=".ActivityDebug"/>
+    </application>
+
+</manifest>
+
+
