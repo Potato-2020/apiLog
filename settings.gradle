@@ -1,2 +1,3 @@
+include ':apiLogVisual'
 include ':app'
 rootProject.name = "apiLog"
