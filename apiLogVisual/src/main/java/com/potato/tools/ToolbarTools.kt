@@ -21,7 +21,7 @@ class ToolbarTools {
         view.toolbar_back?.setOnClickListener {
             activity.finish()
         }
-        view.toolbar_title?.text = title ?: ""
+        view.toolbar_title?.text = title
     }
 
     private fun initStatusHeight(activity: Activity?, view: View?) {
