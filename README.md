@@ -2,6 +2,8 @@
 
 ## **Android Debug接口调试工具，轻便简约**
 
+**硬性要求：必须支持okhttp**
+
 **最新版本：1.1.0**
 
 **效果如图**
@@ -40,7 +42,7 @@ allprojects {
 ### b、代码中的使用
 
 **在网络接口类中**
-
+接口管理类，可以是接口、抽象类，类。但是要在接口方法上，加上@ApiLog注解
 ```java
 /**
  * create by Potato
@@ -48,7 +50,8 @@ allprojects {
  * Description：接口管理
  */
 public interface ApiManager {
-    //首页信息
+    //首页信息@nameChinese：接口的中文名字；@nameEnglish：接口的url（注意：不能有host）
+    //目前的接口host的后缀，没有做兼容，仅支持，如****.com 或 ***.in 或 ***:8080(8082) 
     @ApiLog(nameChinese = "首页信息", nameEnglish = "/api/example/mainIndex")
     @FormUrlEncoded
     @POST("/api/example/mainIndex")
