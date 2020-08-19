@@ -20,8 +20,8 @@ class ActivityDebug : ApiLogBaseAc(),
 
     private fun initView() {
         tv_url.text = intent.getStringExtra("baseUrl")
+        tv_img_url.text = intent.getStringExtra("baseImageUrl")
         tv_version.text = intent.getStringExtra("versionName")
-        tv_img_url.text = intent.getStringExtra("imageUrl")
         linear_url.setOnClickListener(this)
         linear_img_url.setOnClickListener(this)
         linear_log.setOnClickListener(this)

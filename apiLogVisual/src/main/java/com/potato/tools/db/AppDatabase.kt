@@ -18,23 +18,9 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun apiLogDao(): ApiLogDao//获得接口日志工具
 
     companion object {
-        lateinit var INSTANCE: AppDatabase
         fun instance(context: Context): AppDatabase {
-            INSTANCE = Room.databaseBuilder(context, AppDatabase::class.java, "AppDataBase").build()
-            return INSTANCE
+            return Room.databaseBuilder(context, AppDatabase::class.java, "AppDataBase").build()
         }
-    }
-
-    /**
-     * 关闭链接
-     */
-    override fun close() {
-        try {
-            INSTANCE?.close()
-        } catch (e: Exception) {
-
-        }
-
     }
 
 }

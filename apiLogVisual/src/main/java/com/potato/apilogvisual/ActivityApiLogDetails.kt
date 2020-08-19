@@ -13,8 +13,6 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
-import com.epoch.rupeeLoan.mvvm.debug.JsonFormatUtils
-import com.epoch.rupeeLoan.mvvm.debug.KMPUtils
 import com.potato.base.ApiLogBaseAc
 import com.potato.tools.ToolbarTools
 import kotlinx.android.synthetic.main.activity_api_log_details.*

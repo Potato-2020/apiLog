@@ -1,4 +1,4 @@
-package com.epoch.rupeeLoan.mvvm.debug
+package com.potato.apilogvisual
 
 /**
  * create by Potato

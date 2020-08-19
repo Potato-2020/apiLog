@@ -1,4 +1,4 @@
-package com.epoch.rupeeLoan.tools.db
+package com.potato.tools.db
 
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable

@@ -1,5 +1,6 @@
 package com.potato.tools
 
+import android.content.Context
 import com.google.gson.Gson
 import com.potato.tools.db.ApiLogUtils
 import com.potato.tools.db.helper.ApiDaoHelper
@@ -14,7 +15,7 @@ import java.nio.charset.Charset
  * create time 2020/8/15
  * Description：拦截器：存储网络相关数据
  */
-class ApiLogInterceptor : Interceptor {
+class ApiLogInterceptor(var context: Context) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val response: Response
@@ -32,10 +33,10 @@ class ApiLogInterceptor : Interceptor {
             val requestBody = getParamKey(request)//请求体
             ApiDaoHelper.apiRecord(
                 ApiLogUtils.nameStyle(request.url.toString(), true),
-                    response.code.toString(),
-                    header,
-                    requestBody,
-                    responseJson)
+                response.code.toString(),
+                header,
+                requestBody,
+                responseJson, context)
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {

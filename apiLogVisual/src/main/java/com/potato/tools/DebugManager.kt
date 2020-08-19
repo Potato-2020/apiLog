@@ -16,6 +16,7 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import androidx.annotation.RequiresApi
 import com.potato.apilogvisual.ActivityDebug
+import com.potato.tools.db.helper.ApiDaoHelper
 
 
 /**
@@ -174,6 +175,7 @@ class DebugManager : SensorEventListener {
             mSensorManager!!.unregisterListener(this, mSensor)
         mSensorManager = null
         mSensor = null
+        ApiDaoHelper.cancel()
     }
 
     interface DebugListener {
@@ -191,11 +193,11 @@ class DebugManager : SensorEventListener {
      * @versionName: 版本名称
      * @version：版本标识
      */
-    fun openDebug(activity: Activity, baseUrl: String, versionName: String, version: String) {
+    fun openDebug(activity: Activity, baseUrl: String, baseImageUrl: String, versionName: String) {
         val intent = Intent(activity, ActivityDebug::class.java)
         intent.putExtra("baseUrl", baseUrl)
+        intent.putExtra("baseImageUrl", baseImageUrl)
         intent.putExtra("versionName", versionName)
-        intent.putExtra("version", version)
         activity.startActivity(intent)
     }
 

@@ -11,9 +11,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.potato.tools.db.AppDatabase
-import com.epoch.rupeeLoan.tools.db.DBHandler
-import com.epoch.rupeeLoan.tools.db.createFlowable
-import com.epoch.rupeeLoan.tools.db.dbSubscribe
+import com.potato.tools.db.DBHandler
+import com.potato.tools.db.createFlowable
+import com.potato.tools.db.dbSubscribe
 import com.potato.base.ApiLogBaseAc
 import com.potato.tools.ToolbarTools
 import com.potato.tools.db.entity.ApiLogEntity
@@ -46,7 +46,7 @@ class ActivityApiLog : ApiLogBaseAc(),
     private fun queryAll() {
         createFlowable(object : DBHandler<List<ApiLogEntity>>() {
             override fun process(): List<ApiLogEntity>? {
-                return AppDatabase.INSTANCE.apiLogDao().queryAll()
+                return AppDatabase.instance(this@ActivityApiLog).apiLogDao().queryAll()
             }
         }).dbSubscribe({
             if (it.isNotEmpty()) notifyView(it)
@@ -59,7 +59,7 @@ class ActivityApiLog : ApiLogBaseAc(),
     private fun queryByName(name: String) {
         createFlowable(object : DBHandler<List<ApiLogEntity>>() {
             override fun process(): List<ApiLogEntity>? {
-                return AppDatabase.INSTANCE.apiLogDao().queryLikeName(name)
+                return AppDatabase.instance(this@ActivityApiLog).apiLogDao().queryLikeName(name)
             }
         }).dbSubscribe({
             if (it.isNotEmpty()) notifyView(it)
