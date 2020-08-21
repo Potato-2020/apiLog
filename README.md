@@ -96,7 +96,7 @@ new OkHttpClient.Builder().addNetworkInterceptor(new ApiLogInterceptor(mContext)
 就会进入到DebugActivity了。
 
 ```kotlin
-class MainActivity : ApiLogBaseAc(), DebugManager.DebugListener {
+class MainActivity : AppCompatActivity(), DebugManager.DebugListener {
     private var debugManager : DebugManager? = null
     private var receiverPotato: ReceiverPotato? = null
     override fun onCreate(savedInstanceState: Bundle?) {
