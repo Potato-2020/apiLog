@@ -69,6 +69,7 @@ class ActivityApiLog : ApiLogBaseAc(),
     }
 
     private fun notifyView(list: List<ApiLogEntity>) {
+        tv_size.text = "共统计了${list.size}个接口"
         if (adapterApiLog == null) {
             adapterApiLog = AdapterActivityApiLog(list)
             recyclerView_apiLog.adapter = adapterApiLog

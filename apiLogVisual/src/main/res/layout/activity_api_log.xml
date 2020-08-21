@@ -7,6 +7,15 @@
 
     <include layout="@layout/toolbar_layout" />
 
+    <TextView
+        android:id="@+id/tv_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:textColor="@android:color/holo_red_light"
+        android:paddingStart="15dp"
+        android:textSize="@dimen/sp_14"/>
+
     <EditText
         android:id="@+id/name_searchApi"
         android:layout_width="match_parent"

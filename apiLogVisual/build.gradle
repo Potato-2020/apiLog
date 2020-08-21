@@ -7,7 +7,7 @@ apply plugin: 'com.jfrog.bintray'
 //https://github.com/bintray/bintray-examples/tree/master/gradle-bintray-plugin-examples
 //注意：发布之前，要手动执行other里的install任务，生成pom
 group = 'com.potato.apiLog'
-version = '1.1.0'
+version = '1.1.1'
 
 android {
     compileSdkVersion 28
@@ -16,8 +16,8 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 3
-        versionName "1.1.0"
+        versionCode 4
+        versionName "1.1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
