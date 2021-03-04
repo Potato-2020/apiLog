@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class ApiLogUtils {
     //截取接口名字（true：包含中文名字）
-    public static String nameStyle(String url, boolean hasChinese) {
+    public static String nameStyle(String url, boolean hasChinese, String port) {
         if (url.isEmpty()) return "";
         if (url.contains("jpeg") || url.contains("png")) return url;
         String[] tailArray = {"\\.com", "\\.in", "\\.net", "\\.cn", "\\.club", "\\.top", "\\.site", "\\.work", "\\.vip", "\\.org", "\\.co"};
@@ -23,16 +23,7 @@ public class ApiLogUtils {
             if (urlArray.length > 1) break;
         }
         if (urlArray.length == 1) {
-            for (int i = 80; i <= 90; i++) {
-                urlArray = url.split("" + i);
-                if (urlArray.length > 1) break;
-            }
-        }
-        if (urlArray.length == 1) {
-            for (int i = 91; i <= 20000; i++) {
-                urlArray = url.split("" + i);
-                if (urlArray.length > 1) break;
-            }
+            urlArray = url.split(port);
         }
 //        String[] urlArray = url.split("\\.com");
 //        if (urlArray.length == 1) {

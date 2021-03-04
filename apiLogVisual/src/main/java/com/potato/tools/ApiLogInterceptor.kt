@@ -15,7 +15,7 @@ import java.nio.charset.Charset
  * create time 2020/8/15
  * Description：拦截器：存储网络相关数据
  */
-class ApiLogInterceptor(var context: Context) : Interceptor {
+class ApiLogInterceptor(var context: Context, var port: String) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val response: Response
@@ -32,7 +32,7 @@ class ApiLogInterceptor(var context: Context) : Interceptor {
             val header = getHeader(request)//请求头
             val requestBody = getParamKey(request)//请求体
             ApiDaoHelper.apiRecord(
-                ApiLogUtils.nameStyle(request.url.toString(), true),
+                ApiLogUtils.nameStyle(request.url.toString(), true, port),
                 response.code.toString(),
                 header,
                 requestBody,
