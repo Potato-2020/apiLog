@@ -91,6 +91,7 @@ class ApiLogInterceptor(var context: Context) : Interceptor {
 //                        part.body.writeTo(buffer)
 //                        result = buffer.readUtf8()
 //                    }
+                    result = "{'表单请求体':'文件流不展示'}"
                 }
                 is FormBody -> {
                     //表单

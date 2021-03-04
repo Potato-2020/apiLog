@@ -16,17 +16,35 @@ public class ApiLogUtils {
     public static String nameStyle(String url, boolean hasChinese) {
         if (url.isEmpty()) return "";
         if (url.contains("jpeg") || url.contains("png")) return url;
-        String[] urlArray = url.split("\\.com");
-        if (urlArray.length == 1) {
-            urlArray = url.split("\\.in");
+        String[] tailArray = {"\\.com", "\\.in", "\\.net", "\\.cn", "\\.club", "\\.top", "\\.site", "\\.work", "\\.vip", "\\.org", "\\.co"};
+        String[] urlArray = null;
+        for (String tailStr : tailArray) {
+            urlArray = url.split(tailStr);
+            if (urlArray.length > 1) break;
         }
         if (urlArray.length == 1) {
-            urlArray = url.split("8082");
+            for (int i = 80; i <= 90; i++) {
+                urlArray = url.split("" + i);
+                if (urlArray.length > 1) break;
+            }
         }
         if (urlArray.length == 1) {
-            urlArray = url.split("8080");
+            for (int i = 91; i <= 20000; i++) {
+                urlArray = url.split("" + i);
+                if (urlArray.length > 1) break;
+            }
         }
-        if (urlArray.length == 1)  {
+//        String[] urlArray = url.split("\\.com");
+//        if (urlArray.length == 1) {
+//            urlArray = url.split("\\.in");
+//        }
+//        if (urlArray.length == 1) {
+//            urlArray = url.split("8082");
+//        }
+//        if (urlArray.length == 1) {
+//            urlArray = url.split("8080");
+//        }
+        if (urlArray.length == 1) {
             return "";
         }
         String name = urlArray[1];//接口路径
