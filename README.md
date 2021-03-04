@@ -4,7 +4,7 @@
 
 **硬性要求：必须支持okhttp**
 
-**最新版本：1.1.0**
+**最新版本：1.1.3**
 
 **效果如图**
 
@@ -21,9 +21,9 @@
 ```groovy
 dependencies {
     //Debug调试界面工具
-	implementation 'com.potato.apiLog:apiLog:1.1.0'
+	implementation 'com.potato.apiLog:apiLog:1.1.3'
     //编译期间生成class(这个上传的jitpack)
-    annotationProcess 'com.github.Potato-2020:ApiCompiler:1.0'
+    annotationProcess 'com.github.Potato-2020:apiLogCompiler:v1.0'
 }
 ```
 
