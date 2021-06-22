@@ -4,7 +4,7 @@
 
 **硬性要求：必须支持okhttp**
 
-**最新版本：1.1.3**
+**最新版本：1.1.4**
 
 **效果如图**
 
@@ -21,7 +21,7 @@
 ```groovy
 dependencies {
     //Debug调试界面工具
-	implementation 'com.potato.apiLog:apiLog:1.1.3'
+	implementation 'com.github.Potato-2020:apiLog:1.1.4'
     //编译期间生成class(这个上传的jitpack)
     annotationProcess 'com.github.Potato-2020:apiLogCompiler:v1.0'
 }
@@ -82,7 +82,7 @@ public class ApiLogMap {
 **添加网络拦截器**
 
 ```java
-new OkHttpClient.Builder().addNetworkInterceptor(new ApiLogInterceptor(mContext));
+new OkHttpClient.Builder().addNetworkInterceptor(new ApiLogInterceptor(mContext, "端口号"));
 ```
 
 加入网络拦截器后，访问接口后，会将数据存储到本地数据库，方便查新接口详情
