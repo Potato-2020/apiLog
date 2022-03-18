@@ -23,7 +23,9 @@ dependencies {
     //Debug调试界面工具
 	implementation 'com.github.Potato-2020:apiLog:1.1.4'
     //编译期间生成class(这个上传的jitpack)
-    implementation 'com.github.Potato-2020:apiLogCompiler:v1.0'
+    //可以不依赖这个库，代价：没有中文接口统计
+    //如果是kotlin项目，没有生成ApiLogMap文件，使用kapt引入依赖
+    annotationProcessor 'com.github.Potato-2020:apiLogCompiler:v1.0'
 }
 ```
 
