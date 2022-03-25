@@ -22,63 +22,12 @@
 dependencies {
     //Debug调试界面工具
 	implementation 'com.github.Potato-2020:apiLog:1.1.4'
-    //编译期间生成class(这个上传的jitpack)
-    //可以不依赖这个库，代价：没有中文接口统计
-    //如果是kotlin项目，没有生成ApiLogMap文件，使用kapt引入依赖
-    annotationProcessor 'com.github.Potato-2020:apiLogCompiler:v1.0'
-}
-```
-
-在根目录下的build.gradle中
-
-```groovy
-allprojects {
-    repositories {
-        maven { url "https://jitpack.io" }
-    }
 }
 ```
 
 
 
 ### b、代码中的使用
-
-**在网络接口类中**
-接口管理类，可以是接口、抽象类，类。但是要在接口方法上，加上@ApiLog注解
-```java
-/**
- * create by Potato
- * create time 
- * Description：接口管理
- */
-public interface ApiManager {
-    //首页信息@nameChinese：接口的中文名字；@nameEnglish：接口的url（注意：不能有host）
-    //目前的接口host的后缀，没有做兼容，仅支持，如****.com 或 ***.in 或 ***:8080(8082) 
-    @ApiLog(nameChinese = "首页信息", nameEnglish = "/api/example/mainIndex")
-    @FormUrlEncoded
-    @POST("/api/example/mainIndex")
-    Flowable<HomeEntity> getHome(@FieldMap Map<String, String> params);
-}
-```
-
-为每个接口加上ApiLog注解后，build一下项目，会生成一个类ApiLogMap
-
-```java
-/**
- * created by Wangguoli.don't delete it,please!!!
- * Time: 2020年8月19日 星期三 下午03时53分41秒 CST
- * 编译期间记录了38个接口
- */
-public class ApiLogMap {
-  public static final Map<String, String> mapApi = new HashMap<>();
-
-  static {
-    mapApi.put("/api/example/mainIndex", "首页信息");
-    ......
-  }
-}
-```
-
 
 
 **添加网络拦截器**
