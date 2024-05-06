@@ -21,8 +21,8 @@
 ```groovy
 dependencies {
 	//依赖编译工具
-	annotationProcessor 'com.github.Potato-2020:apiLogCompiler:1.1.4'
-	impletentation 'com.github.Potato-2020:apiLogCompiler:1.1.4'
+	annotationProcessor 'com.github.Potato-2020:apiLogCompiler:1.1.5'
+	impletentation 'com.github.Potato-2020:apiLogCompiler:1.1.5'
 }
 ```
 
