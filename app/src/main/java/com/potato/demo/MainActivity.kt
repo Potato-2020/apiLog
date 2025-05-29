@@ -21,15 +21,15 @@ class MainActivity : ApiLogBaseAc(), DebugManager.DebugListener {
         intentFilter.addAction(ReceiverPotato.ACTION)
         receiverPotato = object : ReceiverPotato() {
             override fun changeBaseUrl(baseUrl: String?) {
-                Log.e("Potato>>>baseUrl>>>", baseUrl)
+                Log.e("Potato>>>baseUrl>>>", baseUrl ?: "")
             }
 
             override fun changeImageUrl(imageUrl: String?) {
-                Log.e("Potato>>>imageUrl>>>", imageUrl)
+                Log.e("Potato>>>imageUrl>>>", imageUrl ?: "")
             }
 
             override fun openWebView(h5: String?) {
-                Log.e("Potato>>>h5>>>", h5)
+                Log.e("Potato>>>h5>>>", h5 ?: "")
             }
         }
         registerReceiver(receiverPotato, intentFilter)

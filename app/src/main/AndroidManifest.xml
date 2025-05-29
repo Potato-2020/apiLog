@@ -5,7 +5,8 @@
     <application
         android:label="DebugTest"
         android:theme="@style/AppTheme">
-        <activity android:name="com.potato.demo.MainActivity">
+        <activity android:name="com.potato.demo.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

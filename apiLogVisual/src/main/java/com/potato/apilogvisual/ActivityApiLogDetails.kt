@@ -15,7 +15,6 @@ import android.widget.TextView
 import android.widget.Toast
 import com.potato.base.ApiLogBaseAc
 import com.potato.tools.ToolbarTools
-import kotlinx.android.synthetic.main.activity_api_log_details.*
 
 /**
  * create by Potato
@@ -23,16 +22,26 @@ import kotlinx.android.synthetic.main.activity_api_log_details.*
  * Description：接口日志详情
  */
 class ActivityApiLogDetails : ApiLogBaseAc(),
-        TextView.OnEditorActionListener,
-        TextWatcher {
+    TextView.OnEditorActionListener,
+    TextWatcher {
 
     private var jsonFormat = ""
     private var requestFormat = ""
     private var headerFormat = ""
+    private lateinit var name_apiLogDetails: TextView
+    private lateinit var json_apiDetails: TextView
+    private lateinit var request_apiDetails: TextView
+    private lateinit var header_apiDetails: TextView
+    private lateinit var content_apiDetails: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_api_log_details)
+        name_apiLogDetails = findViewById(R.id.name_apiLogDetails)
+        json_apiDetails = findViewById(R.id.json_apiDetails)
+        request_apiDetails = findViewById(R.id.request_apiDetails)
+        header_apiDetails = findViewById(R.id.header_apiDetails)
+        content_apiDetails = findViewById(R.id.content_apiDetails)
         ToolbarTools().inject(this, "接口详情")
         initView()
     }
@@ -40,9 +49,9 @@ class ActivityApiLogDetails : ApiLogBaseAc(),
     private fun initView() {
         val intent = intent ?: return
         name_apiLogDetails.text = intent.getStringExtra("name")
-        jsonFormat = JsonFormatUtils.formatJson(intent.getStringExtra("json"))
-        requestFormat = JsonFormatUtils.formatJson(intent.getStringExtra("request"))
-        headerFormat = JsonFormatUtils.formatJson(intent.getStringExtra("header"))
+        jsonFormat = JsonFormatUtils.formatJson(intent.getStringExtra("json") ?: "")
+        requestFormat = JsonFormatUtils.formatJson(intent.getStringExtra("request") ?: "")
+        headerFormat = JsonFormatUtils.formatJson(intent.getStringExtra("header") ?: "")
         json_apiDetails.text = jsonFormat
         request_apiDetails.text = requestFormat
         header_apiDetails.text = headerFormat
@@ -81,7 +90,12 @@ class ActivityApiLogDetails : ApiLogBaseAc(),
         if (startIndex < 0 || endIndex < 0 || endIndex < startIndex) return
         val style = SpannableStringBuilder()
         style.append(json_apiDetails.text)
-        style.setSpan(ForegroundColorSpan(Color.GREEN), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        style.setSpan(
+            ForegroundColorSpan(Color.GREEN),
+            startIndex,
+            endIndex,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
         json_apiDetails.text = style
     }
 
@@ -89,7 +103,8 @@ class ActivityApiLogDetails : ApiLogBaseAc(),
      * 隐藏输入法
      */
     private fun hideKeyboard() {
-        val imm = applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm =
+            applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS)
     }
 

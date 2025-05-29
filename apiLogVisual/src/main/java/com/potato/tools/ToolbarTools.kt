@@ -3,7 +3,9 @@ package com.potato.tools
 import android.app.Activity
 import android.content.Context
 import android.view.View
-import kotlinx.android.synthetic.main.toolbar_layout.view.*
+import android.widget.ImageView
+import android.widget.TextView
+import com.potato.apilogvisual.R
 
 /**
  * create by Potato
@@ -17,11 +19,11 @@ class ToolbarTools {
      */
     fun inject(activity: Activity?, title: String) {
         val view = activity!!.window.decorView
-        initStatusHeight(activity, view.iv_status_bar)
-        view.toolbar_back?.setOnClickListener {
+        initStatusHeight(activity, view.findViewById<ImageView>(R.id.iv_status_bar))
+        view.findViewById<ImageView>(R.id.toolbar_back)?.setOnClickListener {
             activity.finish()
         }
-        view.toolbar_title?.text = title
+        view.findViewById<TextView>(R.id.toolbar_title)?.text = title
     }
 
     private fun initStatusHeight(activity: Activity?, view: View?) {

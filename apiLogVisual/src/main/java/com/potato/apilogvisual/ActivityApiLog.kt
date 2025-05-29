@@ -7,17 +7,18 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.potato.base.ApiLogBaseAc
+import com.potato.tools.ToolbarTools
 import com.potato.tools.db.AppDatabase
 import com.potato.tools.db.DBHandler
 import com.potato.tools.db.createFlowable
 import com.potato.tools.db.dbSubscribe
-import com.potato.base.ApiLogBaseAc
-import com.potato.tools.ToolbarTools
 import com.potato.tools.db.entity.ApiLogEntity
-import kotlinx.android.synthetic.main.activity_api_log.*
 import org.reactivestreams.Subscription
 
 class ActivityApiLog : ApiLogBaseAc(),
@@ -27,10 +28,16 @@ class ActivityApiLog : ApiLogBaseAc(),
     private var adapterApiLog: AdapterActivityApiLog? = null
     private var subscription1: Subscription? = null//订阅1
     private var subscription2: Subscription? = null//订阅2
+    private lateinit var recyclerView_apiLog: RecyclerView
+    private lateinit var name_searchApi: EditText
+    private lateinit var tv_size: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_api_log)
+        recyclerView_apiLog = findViewById(R.id.recyclerView_apiLog)
+        name_searchApi = findViewById(R.id.name_searchApi)
+        tv_size = findViewById(R.id.tv_size)
         initView()
     }
 
