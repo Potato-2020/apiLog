@@ -23,7 +23,7 @@ dependencies {
     //Debug调试界面工具
 	implementation 'com.github.Potato-2020:apiLog:1.1.6'
 	//依赖编译工具
-	annotationProcessor 'com.github.Potato-2020:apiLogCompiler:1.1.6'
+	implementation 'com.github.Potato-2020:apiLogCompiler:1.1.6'
 }
 ```
 
