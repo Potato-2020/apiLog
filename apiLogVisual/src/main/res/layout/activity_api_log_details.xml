@@ -28,6 +28,7 @@
         android:paddingStart="15dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
+        android:textColor="#000000"
         android:textIsSelectable="true"
         tools:ignore="RtlSymmetry" />
 
@@ -64,6 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:textIsSelectable="true"
+                    android:textColor="#000000"
                     tools:ignore="RtlSymmetry" />
             </LinearLayout>
             <LinearLayout
@@ -86,6 +88,7 @@
                     android:id="@+id/request_apiDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#000000"
                     android:layout_marginTop="8dp"
                     android:textIsSelectable="true"
                     tools:ignore="RtlSymmetry" />
@@ -112,6 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:textColor="#000000"
                     android:textIsSelectable="true"
                     tools:ignore="RtlSymmetry" />
             </LinearLayout>
