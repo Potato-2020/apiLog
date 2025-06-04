@@ -38,15 +38,14 @@ class ApiLogInterceptor(
             val responseJson = buffer.clone().readString(Charset.forName("UTF-8"))//响应体
             val header = getHeader(request)//请求头
             val requestBody = getParamKey(request)//请求体
-            val path = response.code.toString()
             ApiDaoHelper.apiRecord(
                 ApiLogUtils.nameStyle(request.url.toString(), true, port),
-                path,
+                response.code.toString(),
                 header,
                 requestBody,
                 responseJson, context
             )
-            recordData?.invoke(path, header, requestBody, responseJson)
+            recordData?.invoke(request.url.toString(), header, requestBody, responseJson)
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
