@@ -2,9 +2,14 @@ package com.potato.tools
 
 import android.content.Context
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.potato.tools.db.ApiLogUtils
 import com.potato.tools.db.helper.ApiDaoHelper
-import okhttp3.*
+import okhttp3.FormBody
+import okhttp3.Interceptor
+import okhttp3.MultipartBody
+import okhttp3.Request
+import okhttp3.Response
 import okio.Buffer
 import java.net.URLDecoder
 import java.nio.charset.Charset
@@ -22,7 +27,9 @@ class ApiLogInterceptor(
 ) :
     Interceptor {
 
-    private val gson = Gson()
+    private val gson = GsonBuilder()
+        .disableHtmlEscaping() // 禁用 HTML 转义（防止 = 变成 \u003d）
+        .create()
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val response: Response
@@ -70,54 +77,44 @@ class ApiLogInterceptor(
         val body = request?.body
         var result = ""
         val httpUrl = request?.url.toString()
-        if ("" == httpUrl) return ""
+        if (httpUrl.isEmpty()) return ""
+
         if ("GET" == request?.method) {
             if (httpUrl.contains("?")) {
                 val map = hashMapOf<String, Any>()
                 val list = httpUrl.split("?")
-                if (list[1].contains("&")) {//多参数
-                    val requestList = list[1].split("&")
-                    for (i in requestList.indices) {//requestList[i] = xx=xx
-                        val key = URLDecoder.decode(requestList[i].split("=")[0], "UTF-8")
-                        val value = URLDecoder.decode(requestList[i].split("=")[1], "UTF-8")
+                if (list[1].contains("&")) { // 多参数
+                    list[1].split("&").forEach { param ->
+                        val keyValue = param.split("=", limit = 2)
+                        if (keyValue.size == 2) {
+                            val key = URLDecoder.decode(keyValue[0], "UTF-8")
+                            val value = URLDecoder.decode(keyValue[1], "UTF-8")
+                            map[key] = value
+                        }
+                    }
+                } else { // 单参数
+                    val keyValue = list[1].split("=", limit = 2)
+                    if (keyValue.size == 2) {
+                        val key = URLDecoder.decode(keyValue[0], "UTF-8")
+                        val value = URLDecoder.decode(keyValue[1], "UTF-8")
                         map[key] = value
                     }
-                } else {//一个参数
-                    //list[1] = xx=xx
-                    val key = URLDecoder.decode(list[1].split("=")[0], "UTF-8")
-                    val value = URLDecoder.decode(list[1].split("=")[1], "UTF-8")
-                    map[key] = value
                 }
                 result = gson.toJson(map)
             }
         } else {
-            val buffer = Buffer()
+            val contentType = body?.contentType()?.toString()?.lowercase()
             when (body) {
                 is MultipartBody -> {
-                    //文件
-//                    val copy = body as MultipartBody?
-//                    for (part in copy!!.parts) {
-//                        part.body.writeTo(buffer)
-//                        result = buffer.readUtf8()
-//                    }
-//                    result = "{'表单请求体':'文件流不展示'}"
                     val partsMap = mutableMapOf<String, Any>()
-                    for (part in body.parts) {
+                    body.parts.forEach { part ->
                         val disposition = part.headers?.get("Content-Disposition")
-                        if (disposition != null) {
-                            // 提取 name 字段
-                            val nameMatch = Regex("name=\"([^\"]*)\"").find(disposition)
-                            val name = nameMatch?.groupValues?.get(1) ?: continue
-
-                            // 检查是否为文件（包含 filename 字段）
-                            val filenameMatch = Regex("filename=\"([^\"]*)\"").find(disposition)
-                            val filename = filenameMatch?.groupValues?.get(1)
-
-                            if (filename != null) {
-                                // 文件类型，记录文件名
-                                partsMap[name] = filename
+                        disposition?.let { disp ->
+                            val nameMatch = Regex("name=\"([^\"]*)\"").find(disp)
+                            val name = nameMatch?.groupValues?.get(1) ?: return@forEach
+                            if (Regex("filename=\"([^\"]*)\"").containsMatchIn(disp)) {
+                                partsMap[name] = "file" // 标记为文件
                             } else {
-                                // 普通字段，读取内容
                                 val buffer = Buffer()
                                 part.body.writeTo(buffer)
                                 partsMap[name] = buffer.readUtf8()
@@ -126,24 +123,28 @@ class ApiLogInterceptor(
                     }
                     result = gson.toJson(partsMap)
                 }
-
                 is FormBody -> {
-                    //表单
-                    val map = mutableMapOf<String, Any>()
-                    for (i in 0 until body.size) {
-                        map[body.name(i)] = body.value(i)
+                    val formMap = (0 until body.size).associate { i ->
+                        body.name(i) to body.value(i)
                     }
-                    result = gson.toJson(map)
+                    result = gson.toJson(formMap)
                 }
-
                 else -> {
-                    //json
-                    body?.writeTo(buffer)
-                    result = buffer.readUtf8()
+                    try {
+                        val buffer = Buffer()
+                        body?.writeTo(buffer)
+                        result = buffer.readUtf8()
+                        // 如果是 JSON，尝试解析并重新序列化
+                        if (contentType?.contains("application/json") == true) {
+                            val jsonObj = gson.fromJson(result, Any::class.java)
+                            result = gson.toJson(jsonObj)
+                        }
+                    } catch (e: Exception) {
+                        result = "{ \"error\": \"failed to parse body\", \"type\": \"${contentType ?: "unknown"}\" }"
+                    }
                 }
             }
         }
         return result
     }
-
 }
